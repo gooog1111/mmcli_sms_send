@@ -29,8 +29,8 @@ done
 unset dublsms
 
 # Формирование SMS для отправки
-for textsms in /tmp/sms/*; do
-    mmcli -m "$idmodem" --messaging-create-sms-with-text="$textsms" --messaging-create-sms="number='$sendnumber',smsc='$smsc'"
+for textsmssend in /tmp/sms/*; do
+    mmcli -m "$idmodem" --messaging-create-sms-with-text="$textsmssend" --messaging-create-sms="number='$sendnumber',smsc='$smsc'"
 done
 
 # Удаление входящих SMS

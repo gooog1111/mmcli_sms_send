@@ -38,5 +38,5 @@
 ```
 Добавьте следующую строку для запуска скрипта каждую минуту:
 ```bash
-* * * * * sudo bash /opt/sendsms.sh >> /var/log/sendsms.log 2>&1
+* * * * * sudo bash /opt/sendsms.sh
 ```

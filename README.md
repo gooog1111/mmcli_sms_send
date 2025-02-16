@@ -8,31 +8,35 @@
 
 ## Установка и настройка
 
-### Клонирование репозитория
+1. ### Клонирование репозитория
    ```bash
    git clone https://github.com/gooog1111/mmcli_sms_to_sms.git
    cd ./mmcli_sms_to_sms/
-   sudo cp ./sendsms.sh /opt/
    ```
-### Настройка скрипта:
+2. ### Настройка скрипта:
 
-Убедитесь, что у вас установлен `modemmanager` и модем определяется в системе:
+2.1 Убедитесь, что у вас установлен `modemmanager` и модем определяется в системе:
 ```bash
-mmcli -L
+   mmcli -L
 
-#    /org/freedesktop/ModemManager1/Modem/2 [QUALCOMM INCORPORATED] 0
+   #    /org/freedesktop/ModemManager1/Modem/2 [QUALCOMM INCORPORATED] 0
 
 ```
-Настройте переменные `smsc` и `sendnumber` в скрипте в соответствии с вашими требованиями.
-
-Настройка crontab:
-Откройте редактор crontab:
-
+2.2 Настройте переменные `smsc` и `sendnumber` в скрипте в соответствии с вашими требованиями.
 ```bash
-crontab -e
+   nano ./sendsms.sh
+```
+2.3 Скопируйте скрипт:
+```bash
+   sudo cp ./sendsms.sh /opt/
+```
+
+2.4 Настройте crontab:
+Откройте редактор crontab:
+```bash
+   crontab -e
 ```
 Добавьте следующую строку для запуска скрипта каждую минуту:
 ```bash
 * * * * * sudo bash /opt/sendsms.sh >> /var/log/sendsms.log 2>&1
-
 ```

@@ -12,7 +12,7 @@ idmodem=$(mmcli -L | sed 's/.*m\///' | awk '{print $1}')
 
 # Получение списка SMS и формирование файлов с текстом
 mmcli -m $idmodem --messaging-list-sms | awk -F: '/(received)/ { print $1 }' | sed 's/.*SMS//' | tr -d '/(received)' | while read textsms; do
-	echo "$(mmcli -s $textsms | grep number: | sed s/.*number:// | tr -d ' ' && echo '------------' && mmcli -s 42 | sed s/.*text:// | sed '/^$/d' | sed 1,4d|  head -n -6 | sed 's/^.*|           //g')" > /tmp/sms/$textsms
+	echo "$(mmcli -s $textsms | grep number: | sed s/.*number:// | tr -d ' ' && echo '------------' && mmcli -s $textsms | sed s/.*text:// | sed '/^$/d' | sed 1,4d|  head -n -6 | sed 's/^.*|           //g')" > /tmp/sms/$textsms
 done
 
 # Сравнение файлов и удаление дубликатов

@@ -46,7 +46,7 @@ https://api.telegram.org/botВАШ_API/sendMessage?chat_id=ВАШ_ID_ЧАТА&te
 2.8 Настройте crontab:
 Откройте редактор crontab:
 ```bash
-   crontab -e
+   sudo crontab -e
 ```
 2.9 Добавьте следующую строку для запуска скрипта каждую минуту:
 ```bash

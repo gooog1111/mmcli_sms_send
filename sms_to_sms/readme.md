@@ -10,8 +10,8 @@
 
 1. ### Клонирование репозитория
    ```bash
-   git clone https://github.com/gooog1111/mmcli_sms_to_sms.git
-   cd ./mmcli_sms_to_sms/
+   git clone https://github.com/gooog1111/mmcli_sms_send.git
+   cd ./mmcli_sms_send/sms_to_sms/
    ```
 2. ### Настройка скрипта:
 
@@ -24,11 +24,11 @@
 ```
 2.2 Настройте переменные `smsc` и `sendnumber` в скрипте в соответствии с вашими требованиями.
 ```bash
-   nano ./sendsms.sh
+   nano ./sms_send_sms.sh
 ```
 2.3 Скопируйте скрипт:
 ```bash
-   sudo cp ./sendsms.sh /opt/
+   sudo cp ./sms_send_sms.sh /opt/
 ```
 
 2.4 Настройте crontab:
@@ -38,5 +38,5 @@
 ```
 Добавьте следующую строку для запуска скрипта каждую минуту:
 ```bash
-* * * * * sudo bash /opt/sendsms.sh
+* * * * * sudo bash /opt/sms_send_sms.sh
 ```

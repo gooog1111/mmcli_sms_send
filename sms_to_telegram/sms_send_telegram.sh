@@ -5,7 +5,6 @@ telegramapi="00000000:AABBCCDDEEFFGGHHaabbccddeeffgghh"
 idchattelegram="000000000"
 # Создание временного каталога для хранения SMS
 mkdir -p /tmp/sms
-
 # Определение модема
 idmodem=$(mmcli -L | sed 's/.*m\///' | awk '{print $1}')
 
@@ -25,15 +24,21 @@ for filesmsduble in /tmp/sms/*; do
 done
 unset dublsms
 
-# Формирование и отправка SMS в telegram через PHP
+# Формирование и отправка SMS в telegram
 for textsmssend in /tmp/sms/*; do
     smstelegram=$(cat $textsmssend | sed 's/$/%0A/' | tr -d "\n")
     echo "<?php file_get_contents('https://api.telegram.org/bot$telegramapi/sendMessage?chat_id=$idchattelegram&text='.(string)'$smstelegram'); ?>" | php
 done
 
-# Удаление входящих SMS
+# Пауза перед удалением
+sleep 5
+
+# Удаление входящих SMS с проверкой и повторением до успешного удаления
 mmcli -m "$idmodem" --messaging-list-sms | awk -F: '/(received)/ { print $1 }' | sed 's/.*SMS//' | tr -d '/(received)' | while read recivedsmsdel; do
-    mmcli -m "$idmodem" --messaging-delete-sms="$recivedsmsdel"
+    until ! mmcli -m "$idmodem" --messaging-list-sms | grep -q "$recivedsmsdel"; do
+        mmcli -m "$idmodem" --messaging-delete-sms="$recivedsmsdel"
+        sleep 1
+    done
 done
 
 # Очистка временного каталога
